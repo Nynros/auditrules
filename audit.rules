@@ -1,4 +1,10 @@
-h=b32 -S clock_settime -F a0=0x0 -F key=time-change
+-D
+-b 8192
+--backlog_wait_time 60000
+-f 1
+-a always,exit -F arch=b32 -S adjtimex,settimeofday,stime -F key=time-change
+-a always,exit -F arch=b64 -S adjtimex,settimeofday -F key=time-change
+-a always,exit -F arch=b32 -S clock_settime -F a0=0x0 -F key=time-change
 -a always,exit -F arch=b64 -S clock_settime -F a0=0x0 -F key=time-change
 -w /etc/localtime -p wa -k time-change
 -w /etc/group -p wa -k identity
